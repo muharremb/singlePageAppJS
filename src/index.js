@@ -1,22 +1,27 @@
 const Cakeman = require("./scripts/cakeman.js");
 const MovingObject = require("./scripts/moving_object.js");
+const Board = require("./scripts/board.js");
+const Ghost = require("./scripts/ghost.js");
+const Game =require("./scripts/game.js");
 
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('game-canvas');
-    const ctx = canvas.getContext("2d");
+    const canvasEl = document.getElementById('game-canvas');
+    canvasEl.width = Game.DIM_X;
+    canvasEl.height = Game.DIM_Y;
 
-    const mo = new MovingObject({
-        pos: [30, 30],
-        vel: [10, 10],
-        radius: 10,
-        color: "#000000"
-    });
+    const ctx = canvasEl.getContext("2d");
+    
+    const cake = new Cakeman();
+    const ghost = new Ghost();
+    const game = new Game();
 
-    mo.draw(ctx);
-    // console.log(mo);
-    const cake = new Cakeman({
-    })
-    cake.draw(ctx);
+    game.draw(ctx);
+    // cake.draw(ctx);
+    // ghost.draw(ctx);
+    // board.render(ctx);
+
 })
 
 window.MovingObject = MovingObject;
+window.Board = Board;
+window.Game = Game;
