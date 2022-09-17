@@ -4,7 +4,7 @@ const Util = require("./utils.js");
 const DEFAULT = {
     COLOR: "#FF0000",
     RADIUS: 15, 
-    SPEED: 5,
+    SPEED: 15,
 }
 
 function Ghost(options) {

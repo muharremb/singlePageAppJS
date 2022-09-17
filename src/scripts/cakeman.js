@@ -1,17 +1,12 @@
 const MovingObject = require("./moving_object.js");
 const Util = require("./utils.js");
 
-const DEFAULT = {
-    COLOR: "#FFFF00",
-    RADIUS: 15
-}
-
-function Cakeman(options) {
+function Cakeman(options) { 
     options = options || {};
-    options.pos = options.pos || [100, 100];
-    options.vel = 0;
-    options.radius = DEFAULT.RADIUS;
-    options.color = DEFAULT.COLOR;
+    options.pos = [100, 100];
+    options.vel = options.vel || [0, 0];
+    options.radius = 15;
+    options.color = "#FFFF00";
 
     MovingObject.call(this, options);
 }

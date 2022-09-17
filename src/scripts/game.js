@@ -26,12 +26,12 @@ Game.prototype.add = function add(object) {
 
 Game.prototype.addGhosts = function addGhosts() {
     for (let i = 0; i < Game.NUM_GHOST; i++) {
-      this.add(new Ghost({ game: this, pos: this.randomPosition() }));
+      this.add(new Ghost({ pos: this.randomPosition() }));
     }
 };
 
 Game.prototype.addCakeman = function addCakeman() {
-    this.add(new Cakeman({game: this, pos: [120, 120]}));
+    this.add(new Cakeman());
 };
 
 Game.prototype.allObjects = function allObjects() {
@@ -46,13 +46,21 @@ Game.prototype.randomPosition = function randomPosition() {
 };
 
 Game.prototype.draw = function draw(ctx) {
-    // console.log(this.allObjects())
+
     ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    ctx.fillStyle = "black";
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    console.log(ctx);
+
     this.allObjects().forEach((object) => {
         object.draw(ctx);
     });
 };
+
+Game.prototype.moveObjects = function (delta) {
+    if(!delta) delta = 50;
+    this.allObjects().forEach((object) => {
+        object.move(delta);
+    });
+}
 
 module.exports = Game;
