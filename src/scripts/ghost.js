@@ -19,4 +19,5 @@ function Ghost(options) {
 }
 
 Util.inherits(Ghost, MovingObject);
+
 module.exports = Ghost;

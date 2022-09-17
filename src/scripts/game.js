@@ -26,7 +26,7 @@ Game.prototype.add = function add(object) {
 
 Game.prototype.addGhosts = function addGhosts() {
     for (let i = 0; i < Game.NUM_GHOST; i++) {
-      this.add(new Ghost({ pos: this.randomPosition() }));
+      this.add(new Ghost({ game: this, pos: this.randomPosition() }));
     }
 };
 
@@ -61,6 +61,45 @@ Game.prototype.moveObjects = function (delta) {
     this.allObjects().forEach((object) => {
         object.move(delta);
     });
-}
+};
+
+Game.prototype.wrap = function wrap(pos) {
+    return [
+      Util.wrap(pos[0], Game.DIM_X), Util.wrap(pos[1], Game.DIM_Y)
+    ];
+};
+
+// Game.prototype.checkCollisions = function checkCollisions() {
+//     const allObjects = this.allObjects();
+//     for (let i = 0; i < allObjects.length; i++) {
+//       for (let j = 0; j < allObjects.length; j++) {
+//         const obj1 = allObjects[i];
+//         const obj2 = allObjects[j];
+  
+//         if (obj1.isCollidedWith(obj2)) {
+//           const collision = obj1.collideWith(obj2);
+//           if (collision) return;
+//         }
+//       }
+//     }
+// };
+
+// Game.prototype.step = function step(delta) {
+//     this.moveObjects(delta);
+//     this.checkCollisions();
+// };
+
+Game.prototype.remove = function remove(object) {
+    if (object instanceof Bullet) {
+      this.bullets.splice(this.bullets.indexOf(object), 1);
+    } else if (object instanceof Asteroid) {
+      this.asteroids.splice(this.asteroids.indexOf(object), 1);
+    } else if (object instanceof Ship) {
+      this.ships.splice(this.ships.indexOf(object), 1);
+    } else {
+      throw new Error("unknown type of object");
+    }
+};
+
 
 module.exports = Game;
