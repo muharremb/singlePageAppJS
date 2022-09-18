@@ -106,7 +106,7 @@ TileMap.prototype.getCakeman = function(velocity) {
 }
 
 TileMap.prototype.didCollidedWithEnv = function(x, y, direction) {
-    // if(typeof direction === null) return;
+    if(typeof direction === null) return;
     if(Number.isInteger(x/this.tileSize) && Number.isInteger(y/this.tileSize)) {
         let column = 0;
         let row = 0;
