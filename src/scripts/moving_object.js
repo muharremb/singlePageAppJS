@@ -23,10 +23,10 @@ MovingObject.prototype.move = function(ctx) {
     this.pos[1] += this.vel[1];
 };
 
-MovingObject.prototype.isCollidedWith = function isCollidedWith(otherObject) {
-    const centerDist = Util.dist(this.pos, otherObject.pos);
-    return centerDist < (this.radius + otherObject.radius);
-};
+// MovingObject.prototype.isCollidedWith = function isCollidedWith(otherObject) {
+//     const centerDist = Util.dist(this.pos, otherObject.pos);
+//     return centerDist < (this.radius + otherObject.radius);
+// };
 
 // MovingObject.prototype.collideWith = function collideWith(otherObject) {
 //     // default do nothing

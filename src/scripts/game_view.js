@@ -1,13 +1,16 @@
-function GameView(game, ctx) {
-    this.game = game;
-    this.ctx = ctx;
-}
+const TileMap = require("./TileMap");
 
-GameView.prototype.start = function() {
-    const cxtThis = this.ctx;
+// function GameView(ctx) {
+//     this.ctx = ctx;
+//     this.tileMap = new TileMap(ctx);
+//     this.gameIter();
+//     // setInterval(this.gameIter.bind(this), 20);
+// }
+
+// GameView.prototype.gameIter = function() {
+//     console.log("game iter");
     
-    setInterval(this.game.moveObjects.bind(this.game), 1000);
-    setInterval(this.game.draw.bind(this.game), 1000, cxtThis);
-}
+//     this.tileMap.render();
+// }
 
 module.exports = GameView;
