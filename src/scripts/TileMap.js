@@ -1,4 +1,6 @@
 const Cakeman = require("./cakeman.js");
+const Ghost = require("./ghost.js");
+
 const MovingDirection = require("./movingDirections.js");
 
 function TileMap (tileSize) {
@@ -20,18 +22,20 @@ function TileMap (tileSize) {
 
     // 1 wall
     // 0 dots
+    // 2 empty black
     // 7 cakeman
+    // 3 ghost red
     
     this.tiles = [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,3,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -54,7 +58,10 @@ TileMap.prototype.draw = function(ctx) {
             let tile = this.tiles[row][column];
             if(tile === 1) this.drawWall(ctx, column, row, this.tileSize);
             else if(tile === 0) this.drawDot(ctx, column, row, this.tileSize);
-            
+            else {
+                this.drawEmpty(ctx, column, row, this.tileSize);
+            }
+
             ctx.strokeStyle = "yellow";
             ctx.strokeRect(
                 column*this.tileSize,
@@ -86,6 +93,11 @@ TileMap.prototype.drawWall = function(ctx, column, row, size) {
     );
 };
 
+TileMap.prototype.drawEmpty = function(ctx, column, row, size) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(column * this.tileSize, row*this.tileSize, size, size);
+}
+
 TileMap.prototype.getCakeman = function(velocity) {
     for(let row=0; row<this.tiles.length; row++) {
         for(let column=0; column<this.tiles[row].length; column++) {
@@ -100,6 +112,25 @@ TileMap.prototype.getCakeman = function(velocity) {
                     }
                 );
                 return cakeMan;
+            }
+        }
+    }
+}
+
+TileMap.prototype.getGhost = function(velocity) {
+    for(let row=0; row<this.tiles.length; row++) {
+        for(let column=0; column<this.tiles[row].length; column++) {
+            let tile = this.tiles[row][column];
+            if(tile === 3) {
+                this.tiles[row][column] = 0;
+                let ghost = new Ghost({
+                    position: [column*this.tileSize, row*this.tileSize],
+                    size: this.tileSize,
+                    velocity: velocity,
+                    tileMap: this
+                    }
+                );
+                return ghost;
             }
         }
     }
@@ -140,6 +171,19 @@ TileMap.prototype.didCollidedWithEnv = function(x, y, direction) {
         if(tile === 1) return true;
     }
     return false;
+}
+
+TileMap.prototype.removeDot = function removeDot(x, y) {
+    const row = y / this.tileSize;
+    const column = x / this.tileSize;
+
+    if(Number.isInteger(row) && Number.isInteger(column)) {
+        if(this.tiles[row][column] === 0) {
+            this.tiles[row][column] = 2;
+            return true;
+        }
+    }
+    return false; 
 }
 
 module.exports = TileMap;

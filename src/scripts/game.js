@@ -8,6 +8,7 @@ function Game(canvas) {
     this.velocity = 2;
     this.tileMap = new TileMap(this.tileSize);
     this.cakeman = this.tileMap.getCakeman(this.velocity);
+    this.ghost = this.tileMap.getGhost(this.velocity);
 
     this.setCanvasSize();
 };
@@ -24,7 +25,11 @@ Game.prototype.start = function() {
 Game.prototype.gameIter = function() {
     this.tileMap.draw(this.ctx);
     this.cakeman.draw(this.ctx);
+    this.ghost.draw(this.ctx, this.pause());
 };
 
+Game.prototype.pause = function pause() {
+    return !this.cakeman.hasMoved;
+}
 
 module.exports = Game;

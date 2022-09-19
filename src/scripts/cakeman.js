@@ -13,6 +13,16 @@ function Cakeman(options) {
     this.animateTimer = null;
     this.animateDefault = 10;
 
+    this.rotation = {
+        right: 0,
+        down: 1,
+        left: 2,
+        up: 3
+    }
+    this.cakemanRotation = this.rotation.right;
+
+    this.hasMoved = false;
+
     document.addEventListener("keydown", this.keydown.bind(this));
     
     this.loadCakemanImages();
@@ -21,13 +31,29 @@ function Cakeman(options) {
 Cakeman.prototype.draw = function(ctx) {
     this.move();
     this.animate();
+    this.removeDot();
+    // I used Tutorial on how to rotate a single image
+    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations
+    let size = this.tileSize / 2;
+    ctx.save();
+    ctx.translate(this.x + size, this.y + size);
+    ctx.rotate((this.cakemanRotation * 90 * Math.PI) / 180);
     ctx.drawImage(
         this.cakemanImages[this.cakemanImageIndex],
-        this.x,
-        this.y,
+        -size,
+        -size,
         this.tileSize,
         this.tileSize
-    )
+    );
+    ctx.restore();
+
+    // ctx.drawImage(
+    //     this.cakemanImages[this.cakemanImageIndex],
+    //     this.x,
+    //     this.y,
+    //     this.tileSize,
+    //     this.tileSize
+    // )
 };
 
 Cakeman.prototype.move = function(){
@@ -52,18 +78,22 @@ Cakeman.prototype.move = function(){
     switch(this.currentMovingDirection) {
         case MovingDirection.up:
         this.y -= this.velocity;
+        this.cakemanRotation = this.rotation.up;
         break;
         
         case MovingDirection.down:
         this.y += this.velocity;
+        this.cakemanRotation = this.rotation.down;
         break; 
         
         case MovingDirection.left:
         this.x -= this.velocity;
+        this.cakemanRotation = this.rotation.left;
         break; 
 
         case MovingDirection.right:
         this.x += this.velocity;
+        this.cakemanRotation = this.rotation.right;
         break; 
     }
 };
@@ -92,6 +122,9 @@ Cakeman.prototype.loadCakemanImages = function() {
 };
 
 Cakeman.prototype.keydown = function (event) {
+    const arr = [38, 40, 37, 39];
+    if(arr.includes(event.keyCode)) this.hasMoved = true;
+
     // up key
     if(event.keyCode === 38) {
         if(this.currentMovingDirection === MovingDirection.down) {
@@ -135,6 +168,11 @@ Cakeman.prototype.animate = function animate() {
         }
     }
 };
+
+Cakeman.prototype.removeDot = function removeDot() {
+    if(this.tileMap.removeDot(this.x, this.y)) {
+    }
+}
 
 module.exports = Cakeman;
 
