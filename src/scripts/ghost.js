@@ -10,7 +10,7 @@ function Ghost(options) {
     this.x = options.position[0];
     this.y = options.position[1];
     this.tileSize = options.size;
-    this.velocity = options.velocity;
+    this.velocity = 2;
     this.tileMap = options.tileMap;
 
     this.movingDirection = getRandomInt(1, 4);

@@ -7,7 +7,6 @@ function TileMap (tileSize) {
 
     // I used MDN Web Documents Square TileMaps Statis Implementation. 
     // https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps/Square_tilemaps_implementation:_Static_maps
-    // I designed 28 x 36 tiles Map, each tile 16 pixels
 
     this.tileSize = tileSize
 
@@ -34,7 +33,7 @@ function TileMap (tileSize) {
         [1,0,3,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,0,0,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -98,7 +97,7 @@ TileMap.prototype.drawEmpty = function(ctx, column, row, size) {
     ctx.fillRect(column * this.tileSize, row*this.tileSize, size, size);
 }
 
-TileMap.prototype.getCakeman = function(velocity) {
+TileMap.prototype.getCakeman = function() {
     for(let row=0; row<this.tiles.length; row++) {
         for(let column=0; column<this.tiles[row].length; column++) {
             let tile = this.tiles[row][column];
@@ -107,7 +106,6 @@ TileMap.prototype.getCakeman = function(velocity) {
                 let cakeMan = new Cakeman({
                     position: [column*this.tileSize, row*this.tileSize],
                     size: this.tileSize,
-                    velocity: velocity,
                     tileMap: this
                     }
                 );
@@ -117,7 +115,7 @@ TileMap.prototype.getCakeman = function(velocity) {
     }
 }
 
-TileMap.prototype.getGhost = function(velocity) {
+TileMap.prototype.getGhost = function() {
     for(let row=0; row<this.tiles.length; row++) {
         for(let column=0; column<this.tiles[row].length; column++) {
             let tile = this.tiles[row][column];
@@ -126,7 +124,6 @@ TileMap.prototype.getGhost = function(velocity) {
                 let ghost = new Ghost({
                     position: [column*this.tileSize, row*this.tileSize],
                     size: this.tileSize,
-                    velocity: velocity,
                     tileMap: this
                     }
                 );

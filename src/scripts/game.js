@@ -7,8 +7,8 @@ function Game(canvas) {
     this.tileSize = 32;
     this.velocity = 2;
     this.tileMap = new TileMap(this.tileSize);
-    this.cakeman = this.tileMap.getCakeman(this.velocity);
-    this.ghost = this.tileMap.getGhost(this.velocity);
+    this.cakeman = this.tileMap.getCakeman();
+    this.ghost = this.tileMap.getGhost();
 
     this.setCanvasSize();
 };
