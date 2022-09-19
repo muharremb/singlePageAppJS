@@ -23,13 +23,32 @@ Game.prototype.start = function() {
 }
 
 Game.prototype.gameIter = function() {
-    this.tileMap.draw(this.ctx);
-    this.cakeman.draw(this.ctx);
-    this.ghost.draw(this.ctx, this.pause());
+    if(!this.isLost()) {
+
+        this.tileMap.draw(this.ctx);
+        this.cakeman.draw(this.ctx);
+        this.ghost.draw(this.ctx, this.pause());
+    }
+    else return;
 };
 
 Game.prototype.pause = function pause() {
     return !this.cakeman.hasMoved;
+}
+
+Game.prototype.isLost = function isLost() {
+    // 2d Detection Collision on mozilla
+    // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    
+    if(
+    this.cakeman.x < this.ghost.x + 16 &&
+    this.cakeman.x + this.ghost.y > 16 &&
+    this.cakeman.y < this.ghost.y + 16 &&
+    16 + this.cakeman.y > this.ghost.y
+    ) {
+        return true;
+    }
+    return false;
 }
 
 module.exports = Game;
