@@ -9,6 +9,7 @@ function Game(canvas) {
     this.tileMap = new TileMap(this.tileSize);
     this.cakeman = this.tileMap.getCakeman();
     this.ghost = this.tileMap.getGhost();
+    this.blueGhost = this.tileMap.getGhost(); 
 
     this.setCanvasSize();
 };
@@ -23,11 +24,13 @@ Game.prototype.start = function() {
 }
 
 Game.prototype.gameIter = function() {
+    // console.log(`cakeman.x: ${this.cakeman.x}, ${this.cakeman.y} ghost x: ${this.ghost.x}, ${this.ghost.y}`);
     if(!this.isLost()) {
 
         this.tileMap.draw(this.ctx);
         this.cakeman.draw(this.ctx);
-        this.ghost.draw(this.ctx, this.pause());
+        this.ghost.draw(this.ctx, this.pause(), this.cakeman);
+        this.blueGhost.draw(this.ctx, this.pause(), this.cakeman);
     }
     else return;
 };
@@ -41,10 +44,15 @@ Game.prototype.isLost = function isLost() {
     // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     
     if(
-    this.cakeman.x < this.ghost.x + 16 &&
-    this.cakeman.x + this.ghost.y > 16 &&
+    (this.cakeman.x < this.ghost.x + 16 &&
+    this.cakeman.x + 16 > this.ghost.x &&
     this.cakeman.y < this.ghost.y + 16 &&
-    16 + this.cakeman.y > this.ghost.y
+    16 + this.cakeman.y > this.ghost.y) ||
+
+    (this.cakeman.x < this.blueGhost.x + 16 &&
+        this.cakeman.x + 16 > this.blueGhost.x &&
+        this.cakeman.y < this.blueGhost.y + 16 &&
+        16 + this.cakeman.y > this.blueGhost.y)
     ) {
         return true;
     }
@@ -52,3 +60,5 @@ Game.prototype.isLost = function isLost() {
 }
 
 module.exports = Game;
+
+window.Game = Game;

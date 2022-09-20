@@ -1,4 +1,5 @@
 const MovingDirection = require("./movingDirections.js");
+const Util = require("./utils.js");
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -12,16 +13,17 @@ function Ghost(options) {
     this.tileSize = options.size;
     this.velocity = 2;
     this.tileMap = options.tileMap;
+    this.id = options.id
 
-    this.movingDirection = getRandomInt(1, 4);
+    this.movingDirection = getRandomInt(1, 4); // initial random is fine
 
     this.loadGhostImage();
 }
 
-Ghost.prototype.draw = function draw(ctx, pause) {
+Ghost.prototype.draw = function draw(ctx, pause, cakeman) {
     if(!pause) {
-        this.move();
-        this.changeDirection();
+        this.move(cakeman);
+        this.changeDirection(cakeman);
     }
     // if(this.tileMap.didCollidedWithEnv(this.x, this.y, this.movingDirection)) this.changeDirection();
     ctx.drawImage(
@@ -33,7 +35,7 @@ Ghost.prototype.draw = function draw(ctx, pause) {
         )
 };
 
-Ghost.prototype.move = function move() {
+Ghost.prototype.move = function move(cakeman) {
     if(!this.tileMap.didCollidedWithEnv(this.x, this.y, this.movingDirection)) {
         switch(this.movingDirection) {
             case MovingDirection.up:
@@ -55,15 +57,23 @@ Ghost.prototype.move = function move() {
     }
 }
 
-Ghost.prototype.changeDirection = function changeDirection() {
+Ghost.prototype.changeDirection = function changeDirection(cakeman) {
     let newMoveDirection = null;
-    newMoveDirection = getRandomInt(1, 4);
+    if(this.id !== 3) {
+        if(getRandomInt(1,4) < 3) {
+            newMoveDirection = Util.findDirectionForGhost(this, cakeman);
+        } else {
+            newMoveDirection = getRandomInt(1,4);
+        }
+    } else {
+        newMoveDirection = Util.findDirectionForGhost(this, cakeman);
+    }
 
     if(this.movingDirection !== newMoveDirection) {
         if(Number.isInteger(this.x / this.tileSize) && Number.isInteger(this.y / this.tileSize)) {
             if(!this.tileMap.didCollidedWithEnv(this.x, this.y, newMoveDirection)) {
                 this.movingDirection = newMoveDirection;
-            }
+            } else this.movingDirection = getRandomInt(1, 4);
         }
     }
 }
@@ -71,6 +81,11 @@ Ghost.prototype.changeDirection = function changeDirection() {
 
 Ghost.prototype.loadGhostImage = function draw() {
     this.ghostImage = new Image();
-    this.ghostImage.src = ("../images/redGhost.png");
+    if(this.id === 3) {
+        this.ghostImage.src = ("../images/redGhost.png");
+    } else if(this.id === 4) {
+        this.ghostImage.src = ("../images/blueGhost.png");
+
+    }
 }
 module.exports = Ghost;
