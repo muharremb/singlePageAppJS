@@ -23,9 +23,9 @@ function Ghost(options) {
 Ghost.prototype.draw = function draw(ctx, pause, cakeman) {
     if(!pause) {
         this.move(cakeman);
-        this.changeDirection(cakeman);
+        if(getRandomInt(1,4) < 2) this.changeDirection(cakeman);
+        // if(this.tileMap.didCollidedWithEnv(this.x, this.y, this.movingDirection)) this.changeDirection(cakeman);
     }
-    // if(this.tileMap.didCollidedWithEnv(this.x, this.y, this.movingDirection)) this.changeDirection();
     ctx.drawImage(
             this.ghostImage,
             this.x,
@@ -54,13 +54,13 @@ Ghost.prototype.move = function move(cakeman) {
             this.x += this.velocity;
             break; 
         }
-    }
+    } 
 }
 
 Ghost.prototype.changeDirection = function changeDirection(cakeman) {
     let newMoveDirection = null;
     if(this.id !== 3) {
-        if(getRandomInt(1,4) < 3) {
+        if(getRandomInt(1,4) < 4) {
             newMoveDirection = Util.findDirectionForGhost(this, cakeman);
         } else {
             newMoveDirection = getRandomInt(1,4);
@@ -73,7 +73,11 @@ Ghost.prototype.changeDirection = function changeDirection(cakeman) {
         if(Number.isInteger(this.x / this.tileSize) && Number.isInteger(this.y / this.tileSize)) {
             if(!this.tileMap.didCollidedWithEnv(this.x, this.y, newMoveDirection)) {
                 this.movingDirection = newMoveDirection;
-            } else this.movingDirection = getRandomInt(1, 4);
+            } else {
+                if(!this.tileMap.didCollidedWithEnv(this.x, this.y, MovingDirection.right)) {
+                    this.movingDirection =MovingDirection.right;
+                }
+            }
         }
     }
 }

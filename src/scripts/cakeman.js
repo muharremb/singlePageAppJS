@@ -88,11 +88,13 @@ Cakeman.prototype.move = function(){
         
         case MovingDirection.left:
         this.x -= this.velocity;
+        if(this.x < 12) this.x = 24 * this.tileMap.tiles[0].length;
         this.cakemanRotation = this.rotation.left;
         break; 
 
         case MovingDirection.right:
         this.x += this.velocity;
+        if(this.x >= this.tileMap.tiles[0].length * 24) this.x = 0;
         this.cakemanRotation = this.rotation.right;
         break; 
     }

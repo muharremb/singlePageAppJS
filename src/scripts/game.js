@@ -4,7 +4,7 @@ const Cakeman = require("./cakeman.js");
 function Game(canvas) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext("2d");
-    this.tileSize = 32;
+    this.tileSize = 24;
     this.velocity = 2;
     this.tileMap = new TileMap(this.tileSize);
     this.cakeman = this.tileMap.getCakeman();
@@ -25,6 +25,7 @@ Game.prototype.start = function() {
 
 Game.prototype.gameIter = function() {
     // console.log(`cakeman.x: ${this.cakeman.x}, ${this.cakeman.y} ghost x: ${this.ghost.x}, ${this.ghost.y}`);
+    console.log(`cakeman.x: ${this.cakeman.x} ${this.cakeman.y}`);
     if(!this.isLost()) {
 
         this.tileMap.draw(this.ctx);

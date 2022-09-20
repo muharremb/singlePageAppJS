@@ -1,5 +1,6 @@
 const Cakeman = require("./cakeman.js");
 const Ghost = require("./ghost.js");
+const PolyTreeNode = require("./polyTreeNode.js");
 
 const MovingDirection = require("./movingDirections.js");
 
@@ -26,25 +27,35 @@ function TileMap (tileSize) {
     // 3 ghost red
     // 4 ghost blue
     
-    this.tiles = [
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,3,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    this.tiles = [        
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,0,0,7,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+        [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
+        [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
+        [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+        [1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1],
+        [1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1],
+        [1,1,1,1,0,1,2,2,3,2,2,4,2,2,1,0,1,1,1,1],
+        [1,1,1,1,0,1,2,1,1,1,1,1,1,2,1,0,1,1,1,1],
+        [2,2,2,2,0,2,2,1,1,1,1,1,1,2,2,0,2,2,2,2],
+        [1,1,1,1,0,1,2,1,1,1,1,1,1,2,1,0,1,1,1,1],
+        [1,1,1,1,0,1,2,2,2,2,2,2,2,2,1,0,1,1,1,1],
+        [1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1],
+        [1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1],
+        [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
+        [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
+        [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
+        [1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ];
+
+    this.ghostNode = null;
+    this.packmanNode = null;
 }
 
 TileMap.prototype.setCanvas = function setCanvas(canvas) {
@@ -62,13 +73,13 @@ TileMap.prototype.draw = function(ctx) {
                 this.drawEmpty(ctx, column, row, this.tileSize);
             }
 
-            ctx.strokeStyle = "yellow";
-            ctx.strokeRect(
-                column*this.tileSize,
-                row * this.tileSize,
-                this.tileSize,
-                this.tileSize
-            )
+            // ctx.strokeStyle = "yellow";
+            // ctx.strokeRect(
+            //     column*this.tileSize,
+            //     row * this.tileSize,
+            //     this.tileSize,
+            //     this.tileSize
+            // )
         }
     }
 }
@@ -129,6 +140,7 @@ TileMap.prototype.getGhost = function() {
                     id: 3
                     }
                 );
+                this.ghostNode = new PolyTreeNode({position: [row, column]});
                 return ghost;    
             } else if(tile === 4) {
                 this.tiles[row][column] = 0;
@@ -193,6 +205,34 @@ TileMap.prototype.removeDot = function removeDot(x, y) {
         }
     }
     return false; 
+}
+
+TileMap.prototype.buildTree = function() {
+    let ghostPosition = this.ghostNode.value.split('');
+
+    let x = ghostPosition[0];
+    let y = ghostPosition[1];
+
+    for(let i=0; i<4; i++) {
+        if(this.tiles[x+1][y] !== 1) {
+            let child = new PolyTreeNode({position: [x+1, y]});
+            this.ghostNode.addChild(child);
+            child.assignParent(ghostNode);
+        } else if(this.tiles[x][y+1] !== 1) {
+            let child = new PolyTreeNode({position: [x, y+1]});
+            this.ghostNode.addChild(child);
+            child.assignParent(ghostNode);
+        } else if (this.tiles[x-1][y] !== 1) {
+            let child = new PolyTreeNode({position: [x-1, y]});
+            this.ghostNode.addChild(child);
+            child.assignParent(ghostNode);
+        }
+        else if (this.tiles[x][y-1] !== 1) {
+            let child = new PolyTreeNode({position: [x, y-1]});
+            this.ghostNode.addChild(child);
+            child.assignParent(ghostNode);
+        }
+    }
 }
 
 module.exports = TileMap;
