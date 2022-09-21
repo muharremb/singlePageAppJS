@@ -83,6 +83,12 @@ TileMap.prototype.draw = function(ctx, cakeman) {
     ctx.fillText(`Score: ${cakeman.score}`, 30, 18);
     ctx.fillText(`Countdown: ${cakeman.timeLeft}`, 360, 18);
 
+    // if(!cakeman.hasMoved) {
+    //     ctx.font = '16px Comic Sans MS';
+    //     ctx.fillStyle = 'white';
+    //     ctx.fillText('xxxxxxxxx');
+    // }
+
     // if(isLost) {
     //     console.log(isLost);
     //     // this.gameOverScreen(ctx, cakeman);

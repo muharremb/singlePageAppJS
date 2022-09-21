@@ -138,8 +138,6 @@ Cakeman.prototype.keydown = function (event) {
 
     // if(event.keyCode === 32) this.timer();
 
-    
-
     if(arr.includes(event.keyCode)) {
         this.hasMoved = true;
         this.timer();
