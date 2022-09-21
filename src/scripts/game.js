@@ -25,7 +25,7 @@ Game.prototype.start = function() {
 
 Game.prototype.gameIter = function() {
     // console.log(`cakeman.x: ${this.cakeman.x}, ${this.cakeman.y} ghost x: ${this.ghost.x}, ${this.ghost.y}`);
-    console.log(`cakeman.x: ${this.cakeman.x} ${this.cakeman.y}`);
+    // console.log(`ghost.moving direction: ${this.ghost.movingDirection}`);
     if(!this.isLost()) {
 
         this.tileMap.draw(this.ctx);

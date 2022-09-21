@@ -22,18 +22,38 @@ function Ghost(options) {
 
 Ghost.prototype.draw = function draw(ctx, pause, cakeman) {
     if(!pause) {
+        this.changeDirection(cakeman);
         this.move(cakeman);
-        if(getRandomInt(1,4) < 2) this.changeDirection(cakeman);
-        // if(this.tileMap.didCollidedWithEnv(this.x, this.y, this.movingDirection)) this.changeDirection(cakeman);
     }
     ctx.drawImage(
-            this.ghostImage,
-            this.x,
-            this.y,
-            this.tileSize,
-            this.tileSize
+        this.ghostImage,
+        this.x,
+        this.y,
+        this.tileSize,
+        this.tileSize
         )
+    // let nextmove = this.tileMap.buildTree(cakeman);
 };
+
+Ghost.prototype.mockMove = function mockMove(suggestedDirection) {
+    let x = null;
+    let y = null;
+    if(!this.tileMap.didCollidedWithEnv(this.x, this.y, suggestedDirection)) {
+        if(suggestedDirection === MovingDirection.up) {
+            y = this.y - this.velocity;
+            return [this.x, y]; 
+        } else if(suggestedDirection === MovingDirection.down) {
+            y = this.y + this.velocity;
+            return [this.x, y];
+        } else if(suggestedDirection === MovingDirection.right) {
+            x = this.x + this.velocity;
+            return [x, this.y];
+        } else {
+            x = this.x - this.velocity;
+            return [x, this.y];
+        }
+    }
+}
 
 Ghost.prototype.move = function move(cakeman) {
     if(!this.tileMap.didCollidedWithEnv(this.x, this.y, this.movingDirection)) {
@@ -48,10 +68,12 @@ Ghost.prototype.move = function move(cakeman) {
             
             case MovingDirection.left:
             this.x -= this.velocity;
+            if(this.x < 12) this.x = 24 * this.tileMap.tiles[0].length;
             break; 
     
             case MovingDirection.right:
             this.x += this.velocity;
+            if(this.x >= this.tileMap.tiles[0].length * 24) this.x=0;
             break; 
         }
     } 
@@ -59,26 +81,23 @@ Ghost.prototype.move = function move(cakeman) {
 
 Ghost.prototype.changeDirection = function changeDirection(cakeman) {
     let newMoveDirection = null;
-    if(this.id !== 3) {
-        if(getRandomInt(1,4) < 4) {
-            newMoveDirection = Util.findDirectionForGhost(this, cakeman);
-        } else {
-            newMoveDirection = getRandomInt(1,4);
-        }
-    } else {
-        newMoveDirection = Util.findDirectionForGhost(this, cakeman);
-    }
+    let newMoveDirectionName = null;
+    let possibleDirections = [];
 
-    if(this.movingDirection !== newMoveDirection) {
-        if(Number.isInteger(this.x / this.tileSize) && Number.isInteger(this.y / this.tileSize)) {
-            if(!this.tileMap.didCollidedWithEnv(this.x, this.y, newMoveDirection)) {
-                this.movingDirection = newMoveDirection;
-            } else {
-                if(!this.tileMap.didCollidedWithEnv(this.x, this.y, MovingDirection.right)) {
-                    this.movingDirection =MovingDirection.right;
-                }
+    if(Number.isInteger(this.x / this.tileSize) && Number.isInteger(this.y / this.tileSize)) {
+        for(let i=1; i<5; i++) {
+            if(!this.tileMap.didCollidedWithEnv(this.x, this.y, i)){
+                let distance = Util.dist(this.mockMove(i), [cakeman.x, cakeman.y]);
+                possibleDirections.push(i);
             }
         }
+        
+        possibleDirections = possibleDirections.filter(item => item !== 5-this.movingDirection);
+
+        if(getRandomInt(1,2,3,4)<3) {
+            newMoveDirection = possibleDirections[Math.floor(Math.random()*possibleDirections.length)];
+        } else newMoveDirection = Util.findDirectionForGhost(this, cakeman, this.tileMap);
+        this.movingDirection = newMoveDirection
     }
 }
 

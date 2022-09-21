@@ -55,7 +55,6 @@ function TileMap (tileSize) {
     ];
 
     this.ghostNode = null;
-    this.packmanNode = null;
 }
 
 TileMap.prototype.setCanvas = function setCanvas(canvas) {
@@ -207,33 +206,83 @@ TileMap.prototype.removeDot = function removeDot(x, y) {
     return false; 
 }
 
-TileMap.prototype.buildTree = function() {
-    let ghostPosition = this.ghostNode.value.split('');
+TileMap.prototype.buildTree = function buildTree(cakemanPosition) {
+    
+    let x = Math.floor(this.ghostNode.x);
+    let y = Math.floor(this.ghostNode.y);
 
-    let x = ghostPosition[0];
-    let y = ghostPosition[1];
-
-    for(let i=0; i<4; i++) {
-        if(this.tiles[x+1][y] !== 1) {
-            let child = new PolyTreeNode({position: [x+1, y]});
-            this.ghostNode.addChild(child);
-            child.assignParent(ghostNode);
-        } else if(this.tiles[x][y+1] !== 1) {
-            let child = new PolyTreeNode({position: [x, y+1]});
-            this.ghostNode.addChild(child);
-            child.assignParent(ghostNode);
-        } else if (this.tiles[x-1][y] !== 1) {
-            let child = new PolyTreeNode({position: [x-1, y]});
-            this.ghostNode.addChild(child);
-            child.assignParent(ghostNode);
-        }
-        else if (this.tiles[x][y-1] !== 1) {
-            let child = new PolyTreeNode({position: [x, y-1]});
-            this.ghostNode.addChild(child);
-            child.assignParent(ghostNode);
+    let cakemanX = Math.floor(cakemanPosition.x/24);
+    let cakemanY = Math.floor(cakemanPosition.y/24);
+    // console.log(cakemanX);
+    let queue = []
+    queue.push(this.ghostNode);
+    // console.log(queue);
+    let isFound = false;
+    while(queue.length && !isFound) {
+        let currentNode = queue.shift();
+        let visitedNodes = [];
+        for(let i=0; i<4; i++) {
+            if(this.tiles[x+1][y] !== 1) {
+                let child = new PolyTreeNode({position: [x+1, y]});
+                if(!visitedNodes.includes(child)) {
+                    queue.push(child);
+                    visitedNodes.push(child);
+                    currentNode.addChild(child);
+                    child.assignParent(currentNode);
+                    if((x+1) === cakemanX && y === cakemanY) {
+                        isFound = true;
+                    }
+                }
+            }if(this.tiles[x][y+1] !== 1) {
+                let child = new PolyTreeNode({position: [x, y+1]});
+                if(!visitedNodes.includes(child)) {
+                    queue.push(child);
+                    visitedNodes.push(child);
+                    currentNode.addChild(child);
+                    child.assignParent(currentNode);
+                    if((x) === cakemanX && (y+1) === cakemanY) {
+                        isFound = true;
+                    }
+                }
+            }if (this.tiles[x-1][y] !== 1) {
+                let child = new PolyTreeNode({position: [x-1, y]});
+                if(!visitedNodes.includes(child)) {
+                    queue.push(child);
+                    visitedNodes.push(child);
+                    currentNode.addChild(child);
+                    child.assignParent(currentNode);
+                    if((x-1) === cakemanX && y === cakemanY) {
+                        isFound = true;
+                    }
+                }
+            }
+            if (this.tiles[x][y-1] !== 1) {
+                let child = new PolyTreeNode({position: [x, y-1]});
+                if(!visitedNodes.includes(child)) {
+                    queue.push(child);
+                    visitedNodes.push(child);
+                    currentNode.addChild(child);
+                    child.assignParent(currentNode);
+                    if((x) === cakemanX && (y-1) === cakemanY) {
+                        isFound = true;
+                    }
+                }
+            }
+            console.log(queue);
         }
     }
-}
+    // need to iterate from back
+    let ghostNode = visitedNodes[visitedNodes.length-1];
+    let backToGhost = [ghostNode];
+    let node = ghostNode.parent;
 
+    while(node.parent !== this.ghostNode) {
+        backToGhost.push(node);
+        node = node.parent;
+    }
+    let nextMoveNode = node;
+    return nextMoveNode.x;
+}
+    
 module.exports = TileMap;
 

@@ -1,7 +1,8 @@
 const TileMap = require("./TileMap");
 
 function PolyTreeNode (options) {
-    this.value = options.position.join('') ;
+    this.x = options.position[0] ;
+    this.y = options.position[1] ;
     this.parent = null;
     this.children = [];
 }
