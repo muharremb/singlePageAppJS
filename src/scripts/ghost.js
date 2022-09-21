@@ -31,8 +31,7 @@ Ghost.prototype.draw = function draw(ctx, pause, cakeman) {
         this.y,
         this.tileSize,
         this.tileSize
-        )
-    // let nextmove = this.tileMap.buildTree(cakeman);
+    );
 };
 
 Ghost.prototype.mockMove = function mockMove(suggestedDirection) {
@@ -68,12 +67,12 @@ Ghost.prototype.move = function move(cakeman) {
             
             case MovingDirection.left:
             this.x -= this.velocity;
-            if(this.x < 12) this.x = 24 * this.tileMap.tiles[0].length;
+            if(this.x < 12) this.x = 23 * this.tileMap.tiles[0].length;
             break; 
     
             case MovingDirection.right:
             this.x += this.velocity;
-            if(this.x >= this.tileMap.tiles[0].length * 24) this.x=0;
+            if(this.x >= this.tileMap.tiles[0].length * 23) this.x=0;
             break; 
         }
     } 
@@ -84,7 +83,7 @@ Ghost.prototype.changeDirection = function changeDirection(cakeman) {
     let newMoveDirectionName = null;
     let possibleDirections = [];
 
-    if(Number.isInteger(this.x / this.tileSize) && Number.isInteger(this.y / this.tileSize)) {
+    if((this.x % this.tileSize === 0) && (this.y % this.tileSize === 0)) {
         for(let i=1; i<5; i++) {
             if(!this.tileMap.didCollidedWithEnv(this.x, this.y, i)){
                 let distance = Util.dist(this.mockMove(i), [cakeman.x, cakeman.y]);
@@ -94,10 +93,15 @@ Ghost.prototype.changeDirection = function changeDirection(cakeman) {
         
         possibleDirections = possibleDirections.filter(item => item !== 5-this.movingDirection);
 
-        if(getRandomInt(1,2,3,4)<3) {
+        if(getRandomInt(1,2,3,4)<2) {
             newMoveDirection = possibleDirections[Math.floor(Math.random()*possibleDirections.length)];
         } else newMoveDirection = Util.findDirectionForGhost(this, cakeman, this.tileMap);
-        this.movingDirection = newMoveDirection
+        this.movingDirection = newMoveDirection;
+
+        //  TileMap BFS
+        // if((this.x % this.tileSize === 0) && (this.y % this.tileSize === 0) && this.id === 3) {
+        //     let nextmove = this.tileMap.buildTree(this, cakeman);
+        // }
     }
 }
 
@@ -108,7 +112,10 @@ Ghost.prototype.loadGhostImage = function draw() {
         this.ghostImage.src = ("../images/redGhost.png");
     } else if(this.id === 4) {
         this.ghostImage.src = ("../images/blueGhost.png");
-
+    } else if(this.id === 5) {
+        this.ghostImage.src = ("../images/purpleGhost.png");
+    } else if(this.id === 6) {
+        this.ghostImage.src = ("../images/pinkGhost.png");
     }
 }
 module.exports = Ghost;

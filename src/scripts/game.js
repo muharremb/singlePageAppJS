@@ -9,7 +9,9 @@ function Game(canvas) {
     this.tileMap = new TileMap(this.tileSize);
     this.cakeman = this.tileMap.getCakeman();
     this.ghost = this.tileMap.getGhost();
-    this.blueGhost = this.tileMap.getGhost(); 
+    this.blueGhost = this.tileMap.getGhost();
+    this.purpleGhost = this.tileMap.getGhost();
+    this.pinkGhost = this.tileMap.getGhost(); 
 
     this.setCanvasSize();
 };
@@ -32,6 +34,8 @@ Game.prototype.gameIter = function() {
         this.cakeman.draw(this.ctx);
         this.ghost.draw(this.ctx, this.pause(), this.cakeman);
         this.blueGhost.draw(this.ctx, this.pause(), this.cakeman);
+        this.purpleGhost.draw(this.ctx, this.pause(), this.cakeman);
+        this.pinkGhost.draw(this.ctx, this.pause(), this.cakeman);
     }
     else return;
 };
@@ -51,9 +55,20 @@ Game.prototype.isLost = function isLost() {
     16 + this.cakeman.y > this.ghost.y) ||
 
     (this.cakeman.x < this.blueGhost.x + 16 &&
-        this.cakeman.x + 16 > this.blueGhost.x &&
-        this.cakeman.y < this.blueGhost.y + 16 &&
-        16 + this.cakeman.y > this.blueGhost.y)
+    this.cakeman.x + 16 > this.blueGhost.x &&
+    this.cakeman.y < this.blueGhost.y + 16 &&
+    16 + this.cakeman.y > this.blueGhost.y)  ||
+    
+    (this.cakeman.x < this.purpleGhost.x + 16 &&
+    this.cakeman.x + 16 > this.purpleGhost.x &&
+    this.cakeman.y < this.purpleGhost.y + 16 &&
+    16 + this.cakeman.y > this.purpleGhost.y)  ||
+
+    (this.cakeman.x < this.pinkGhost.x + 16 &&
+        this.cakeman.x + 16 > this.pinkGhost.x &&
+        this.cakeman.y < this.pinkGhost.y + 16 &&
+        16 + this.cakeman.y > this.pinkGhost.y)  
+
     ) {
         return true;
     }
