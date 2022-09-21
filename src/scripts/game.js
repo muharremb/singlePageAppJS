@@ -22,7 +22,8 @@ Game.prototype.setCanvasSize = function setCanvasSize() {
 }
 
 Game.prototype.start = function() {
-    setInterval(this.gameIter.bind(this), 1000/50);
+    setInterval(this.gameIter.bind(this), 1000/60);
+    this.cakeman.timer();
 }
 
 Game.prototype.gameIter = function() {
@@ -30,7 +31,7 @@ Game.prototype.gameIter = function() {
     // console.log(`ghost.moving direction: ${this.ghost.movingDirection}`);
     if(!this.isLost()) {
 
-        this.tileMap.draw(this.ctx);
+        this.tileMap.draw(this.ctx, this.cakeman);
         this.cakeman.draw(this.ctx);
         this.ghost.draw(this.ctx, this.pause(), this.cakeman);
         this.blueGhost.draw(this.ctx, this.pause(), this.cakeman);
@@ -65,9 +66,11 @@ Game.prototype.isLost = function isLost() {
     16 + this.cakeman.y > this.purpleGhost.y)  ||
 
     (this.cakeman.x < this.pinkGhost.x + 16 &&
-        this.cakeman.x + 16 > this.pinkGhost.x &&
-        this.cakeman.y < this.pinkGhost.y + 16 &&
-        16 + this.cakeman.y > this.pinkGhost.y)  
+    this.cakeman.x + 16 > this.pinkGhost.x &&
+    this.cakeman.y < this.pinkGhost.y + 16 &&
+    16 + this.cakeman.y > this.pinkGhost.y)  ||
+
+    this.cakeman.timeLeft <= -1
 
     ) {
         return true;

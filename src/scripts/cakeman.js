@@ -23,6 +23,9 @@ function Cakeman(options) {
 
     this.hasMoved = false;
 
+    this.score = 0;
+    this.timeLeft = 10;
+
     document.addEventListener("keydown", this.keydown.bind(this));
     
     this.loadCakemanImages();
@@ -55,6 +58,14 @@ Cakeman.prototype.draw = function(ctx) {
     //     this.tileSize
     // )
 };
+
+Cakeman.prototype.timer = function timer() {
+    let countdown = setInterval((ele) => {
+        if(this.timeLeft < 0) clearInterval(countdown);
+            this.timeLeft -=1;
+        }, 1000
+    )
+}
 
 Cakeman.prototype.move = function(){
     if(this.currentMovingDirection !== this.requestedMovingDirection) {
@@ -125,7 +136,9 @@ Cakeman.prototype.loadCakemanImages = function() {
 
 Cakeman.prototype.keydown = function (event) {
     const arr = [38, 40, 37, 39];
-    if(arr.includes(event.keyCode)) this.hasMoved = true;
+    if(arr.includes(event.keyCode)) {
+        this.hasMoved = true;
+    }
 
     // up key
     if(event.keyCode === 38) {
@@ -173,6 +186,7 @@ Cakeman.prototype.animate = function animate() {
 
 Cakeman.prototype.removeDot = function removeDot() {
     if(this.tileMap.removeDot(this.x, this.y)) {
+        this.score += 1;
     }
 }
 
