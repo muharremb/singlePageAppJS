@@ -6,6 +6,7 @@ function Game(canvas) {
     this.ctx = this.canvas.getContext("2d");
     this.tileSize = 24;
     this.velocity = 2;
+    
     // this.tileMap = new TileMap(this.tileSize);
     // this.cakeman = this.tileMap.getCakeman();
     // this.ghost = this.tileMap.getGhost();
@@ -43,7 +44,6 @@ Game.prototype.gameIter = function() {
     // console.log(`cakeman.x: ${this.cakeman.x}, ${this.cakeman.y} ghost x: ${this.ghost.x}, ${this.ghost.y}`);
     // console.log(`ghost.moving direction: ${this.ghost.movingDirection}`);
     if(!this.isLost()) {
-
         this.tileMap.draw(this.ctx, this.cakeman);
         this.cakeman.draw(this.ctx);
         this.ghost.draw(this.ctx, this.pause(), this.cakeman);
@@ -89,6 +89,8 @@ Game.prototype.isLost = function isLost() {
         this.tileMap.gameOverScreen(this.ctx, this.cakeman);
         // this.stop();
         // this.start();
+        setTimeout(() => location.reload(), 5000);
+        // location.reload();
         return true;
     }
     return false;

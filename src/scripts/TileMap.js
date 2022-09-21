@@ -65,7 +65,7 @@ TileMap.prototype.setCanvas = function setCanvas(canvas) {
     canvas.height = this.tiles.length * this.tileSize;
 }
 
-TileMap.prototype.draw = function(ctx, cakeman, isLost, isWin) {
+TileMap.prototype.draw = function(ctx, cakeman) {
     for(let row=0; row<this.tiles.length; row++) {
         for(let column=0; column<this.tiles[row].length; column++) {
             let tile = this.tiles[row][column];
@@ -74,28 +74,12 @@ TileMap.prototype.draw = function(ctx, cakeman, isLost, isWin) {
             else if(tile === 2){
                 this.drawEmpty(ctx, column, row, this.tileSize);
             }
-
-            // ctx.strokeStyle = "yellow";
-            // ctx.strokeRect(
-            //     column*this.tileSize,
-            //     row * this.tileSize,
-            //     this.tileSize,
-            //     this.tileSize
-            // )
         }
     }
-    // ctx.strokeStyle = "red";
-    // ctx.strokeRect(
-    //     0,
-    //     0,
-    //     144,
-    //     24
-    // )
-    ctx.clearRect(0, 0, 480, 24);
 
+    ctx.clearRect(0, 0, 480, 24);
     ctx.font = '16px Comic Sans MS';
     ctx.fillStyle = 'white';
-    // console.log(cakeman.score);
     ctx.fillText(`Score: ${cakeman.score}`, 30, 18);
     ctx.fillText(`Countdown: ${cakeman.timeLeft}`, 360, 18);
 

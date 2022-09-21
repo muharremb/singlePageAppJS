@@ -105,7 +105,6 @@ Ghost.prototype.changeDirection = function changeDirection(cakeman) {
     }
 }
 
-
 Ghost.prototype.loadGhostImage = function draw() {
     this.ghostImage = new Image();
     if(this.id === 3) {
