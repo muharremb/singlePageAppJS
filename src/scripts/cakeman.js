@@ -20,11 +20,11 @@ function Cakeman(options) {
         up: 3
     }
     this.cakemanRotation = this.rotation.right;
-
+    this.dotsLeft = 0
     this.hasMoved = false;
 
     this.score = 0;
-    this.timeLeft = 10;
+    this.timeLeft = 120;
 
     document.addEventListener("keydown", this.keydown.bind(this));
     
@@ -35,7 +35,6 @@ Cakeman.prototype.draw = function(ctx) {
     this.move();
     this.animate();
     this.removeDot();
-    // I used Tutorial on how to rotate a single image
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations
     let size = this.tileSize / 2;
     ctx.save();
@@ -136,8 +135,12 @@ Cakeman.prototype.loadCakemanImages = function() {
 
 Cakeman.prototype.keydown = function (event) {
     const arr = [38, 40, 37, 39];
+
+    // if(event.keyCode === 32) this.timer();
+
     if(arr.includes(event.keyCode)) {
         this.hasMoved = true;
+        this.timer();
     }
 
     // up key

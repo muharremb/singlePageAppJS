@@ -6,14 +6,14 @@ function Game(canvas) {
     this.ctx = this.canvas.getContext("2d");
     this.tileSize = 24;
     this.velocity = 2;
-    this.tileMap = new TileMap(this.tileSize);
-    this.cakeman = this.tileMap.getCakeman();
-    this.ghost = this.tileMap.getGhost();
-    this.blueGhost = this.tileMap.getGhost();
-    this.purpleGhost = this.tileMap.getGhost();
-    this.pinkGhost = this.tileMap.getGhost(); 
+    // this.tileMap = new TileMap(this.tileSize);
+    // this.cakeman = this.tileMap.getCakeman();
+    // this.ghost = this.tileMap.getGhost();
+    // this.blueGhost = this.tileMap.getGhost();
+    // this.purpleGhost = this.tileMap.getGhost();
+    // this.pinkGhost = this.tileMap.getGhost(); 
 
-    this.setCanvasSize();
+    // this.setCanvasSize();
 };
 
 
@@ -22,8 +22,21 @@ Game.prototype.setCanvasSize = function setCanvasSize() {
 }
 
 Game.prototype.start = function() {
-    setInterval(this.gameIter.bind(this), 1000/60);
-    this.cakeman.timer();
+    this.tileMap = new TileMap(this.tileSize);
+    this.cakeman = this.tileMap.getCakeman();
+    this.ghost = this.tileMap.getGhost();
+    this.blueGhost = this.tileMap.getGhost();
+    this.purpleGhost = this.tileMap.getGhost();
+    this.pinkGhost = this.tileMap.getGhost();
+    this.setCanvasSize(); 
+
+    this.myInterval = setInterval(this.gameIter.bind(this), 1000/60);
+    // this.cakeman.timer();
+    // setInterval(this.gameIter.bind(this), 1000/60);
+}
+
+Game.prototype.stop = function() {
+    clearInterval(this.myInterval);
 }
 
 Game.prototype.gameIter = function() {
@@ -38,7 +51,7 @@ Game.prototype.gameIter = function() {
         this.purpleGhost.draw(this.ctx, this.pause(), this.cakeman);
         this.pinkGhost.draw(this.ctx, this.pause(), this.cakeman);
     }
-    else return;
+    // else this.start();
 };
 
 Game.prototype.pause = function pause() {
@@ -73,10 +86,21 @@ Game.prototype.isLost = function isLost() {
     this.cakeman.timeLeft <= -1
 
     ) {
+        this.tileMap.gameOverScreen(this.ctx, this.cakeman);
+        // this.stop();
+        // this.start();
         return true;
     }
     return false;
 }
+
+// Game.prototype.isWin = function isWin() {
+//     let remainingDots = this.tileMap.tiles.flat().filter(v => v === 0).length;
+//     if(remainingDots === 0) {
+//         return true;     
+//     }
+//     return false;
+// }
 
 module.exports = Game;
 

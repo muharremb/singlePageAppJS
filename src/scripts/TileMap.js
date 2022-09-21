@@ -37,7 +37,7 @@ function TileMap (tileSize) {
         [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
         [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
         [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
-        [1,0,0,0,3,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1],
+        [1,0,0,0,4,0,0,0,0,0,0,0,0,0,0,3,0,0,0,1],
         [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
         [1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1],
         [1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1],
@@ -49,7 +49,7 @@ function TileMap (tileSize) {
         [1,1,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,1,1],
         [1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1],
         [1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,0,1,1,0,1],
-        [1,0,0,0,5,0,0,0,0,0,0,0,0,0,0,6,0,0,0,1],
+        [1,0,0,0,6,0,0,0,0,0,0,0,0,0,0,5,0,0,0,1],
         [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
         [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
         [1,0,1,1,0,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1],
@@ -65,7 +65,7 @@ TileMap.prototype.setCanvas = function setCanvas(canvas) {
     canvas.height = this.tiles.length * this.tileSize;
 }
 
-TileMap.prototype.draw = function(ctx, cakeman) {
+TileMap.prototype.draw = function(ctx, cakeman, isLost, isWin) {
     for(let row=0; row<this.tiles.length; row++) {
         for(let column=0; column<this.tiles[row].length; column++) {
             let tile = this.tiles[row][column];
@@ -98,6 +98,24 @@ TileMap.prototype.draw = function(ctx, cakeman) {
     // console.log(cakeman.score);
     ctx.fillText(`Score: ${cakeman.score}`, 30, 18);
     ctx.fillText(`Countdown: ${cakeman.timeLeft}`, 360, 18);
+
+    // if(isLost) {
+    //     console.log(isLost);
+    //     // this.gameOverScreen(ctx, cakeman);
+    //     ctx.font = '20px Comic Sans MS';
+    //     ctx.fillStyle = 'white';
+    //     ctx.fillText('Game Over', 185, 296);
+    //     ctx.fillText(`Score: ${cakeman.score}`, 196, 320);
+    // }
+
+    // if(isWin) {
+    //     this.winScreen(ctx, cakeman);
+    // }
+    // ctx.clearRect(180, 275, 110, 50)
+    // ctx.font = '20px Comic Sans MS';
+    // ctx.fillStyle = 'white';
+    // ctx.fillText('Game Over', 185, 296);
+    // ctx.fillText('Score: ', 196, 320)
 }
 
 TileMap.prototype.drawDot = function(ctx, column, row, size) {
@@ -330,6 +348,25 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
     // let nextMoveNode = node;
     // return nextMoveNode.x;
 }
-    
+
+TileMap.prototype.gameOverScreen = function(ctx, cakeman) {
+    // ctx.clearRect(180, 275, 110, 50);
+    ctx.font = '20px Comic Sans MS';
+    ctx.fillStyle = 'white';
+    ctx.fillText('Game Over', 185, 296);
+    ctx.fillText(`Score: ${cakeman.score}`, 196, 320);
+    // return true;
+}
+
+TileMap.prototype.winScreen = function(ctx, cakeman) {
+    // ctx.clearRect(180, 275, 110, 50);
+    ctx.font = '20px Comic Sans MS';
+    ctx.fillStyle = 'white';
+    ctx.fillText('You win!', 185, 296);
+    ctx.fillText(`Score: ${cakeman.score}`, 196, 320);
+    // return true;
+}
+
+
 module.exports = TileMap;
 
