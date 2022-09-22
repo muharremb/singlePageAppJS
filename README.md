@@ -1,27 +1,15 @@
-# JS Personal Project: Cake-Man Near You
+# JS Personal Project: Cake-Man Game
 
 ## Background
-Cake-Man is a different version of Pac-Man. In Pac-Man, the player controls Pac-Man character in an enclosed static maze. In Cake-Man Map Version, the player selects a location from Google Maps and plays in the streets of the area that has been selected. 
+Cake-Man is a different version of Pac-Man which originally released at 1980. In my version, ghosts have same behaviour, around 50% of the time they directly chase Cakeman. If they cant move to the Cakeman direction, the ghosts check adjacent positions and select a random move. 
 
-## Functionality & MVPs
-The user can select the game version, Cake-Man and Cake-Man Map. The user can toggle between sound and mute mode. 
+## Instructions to Play Cake-Man
+The player control cakeman using only arrow keys: UP, DOWN, LEFT, RIGHT. The player should eat all the dots while avoiding ghosts. There is a fixed timer on the upper right, 120 seconds to finish. Timer starts when the player push any controlling buttons.
 
-## Wireframes
 
-![](projectFrame.png)
+![](cakemanGameScreen.png)
 
 ## Technologies, Libraries, APIs
-The Cake-Man Game is a Single Page Application written in JavaScript using the following APIs: Webpack, Google, AJAX. 
+The Cake-Man Game is a Single Page Application written in JavaScript using Webpack for bundling and Canvas 2D for drawing. 
 
-## Implementation Timeline
-The Cake-Man Game is a two-phase project. Phase 1 is Cake-Man, and Phase 2 is Cake-Man Map. 
-
-Friday: Initial setup, canvas API study, modular class, and layout design decisions. 
-
-Weekend: Board, MovingObjects, Ghosts, CakeMan class implementations. Collisions, Ghost AI design, and tests. Phase 1 ends. 
-
-Monday: Google Maps API study and Canvas Image Importing tests. 
-
-Tuesday-Wednesday: Importing layout from Google Maps and tests.
-
-Thursday: Deployment
+## Implementation
