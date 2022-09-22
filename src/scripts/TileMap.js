@@ -289,8 +289,6 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
 
         let x = currentNode.x;
         let y = currentNode.y;
-        // console.log(`x: ${x} vs y: ${y}`);
-        // return;
         
         if(this.tiles[x+1][y] !== 1 && this.tiles[x+1] !== undefined) {
             var child = new PolyTreeNode({position: [x+1, y]});
@@ -304,6 +302,8 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                     break;
                 }
             }
+            // console.log(visitedNodes);
+            // return;
         }
         if(this.tiles[x][y+1] !== 1 && this.tiles[x][y+1] !== undefined) {
             var child = new PolyTreeNode({position: [x, y+1]});
@@ -351,9 +351,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
     }
     let cakemanNode = visitedNodes[visitedNodes.length-1];
     let backToGhostArr = [cakemanNode];
-    console.log(cakemanNode.parent.x);
-    return;
-    // console.log(`console log: ${visitedNodes}`)
+    let node = cakemanNode;
     while(node.parent !== inputGhostNode) {
         backToGhostArr.push(node);
         node = node.parent;
