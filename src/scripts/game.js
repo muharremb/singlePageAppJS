@@ -32,7 +32,7 @@ Game.prototype.start = function() {
     this.setCanvasSize(); 
 
     this.myInterval = setInterval(this.gameIter.bind(this), 1000/60);
-    // this.cakeman.timer();
+    this.cakeman.timer();
     // setInterval(this.gameIter.bind(this), 1000/60);
 }
 
@@ -43,6 +43,7 @@ Game.prototype.stop = function() {
 Game.prototype.gameIter = function() {
     // console.log(`cakeman.x: ${this.cakeman.x}, ${this.cakeman.y} ghost x: ${this.ghost.x}, ${this.ghost.y}`);
     // console.log(`ghost.moving direction: ${this.ghost.movingDirection}`);
+    
     if(!this.isLost()) {
         this.tileMap.draw(this.ctx, this.cakeman);
         this.cakeman.draw(this.ctx);
@@ -89,7 +90,7 @@ Game.prototype.isLost = function isLost() {
         this.tileMap.gameOverScreen(this.ctx, this.cakeman);
         // this.stop();
         // this.start();
-        setTimeout(() => location.reload(), 5000);
+        setTimeout(() => location.reload(), 7000);
         // location.reload();
         return true;
     }

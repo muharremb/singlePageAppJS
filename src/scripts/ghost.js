@@ -93,14 +93,16 @@ Ghost.prototype.changeDirection = function changeDirection(cakeman) {
         
         possibleDirections = possibleDirections.filter(item => item !== 5-this.movingDirection);
 
-        if(getRandomInt(1,2,3,4)<2) {
+        if(getRandomInt(1,2,3,4)<3) {
             newMoveDirection = possibleDirections[Math.floor(Math.random()*possibleDirections.length)];
         } else newMoveDirection = Util.findDirectionForGhost(this, cakeman, this.tileMap);
+        
         this.movingDirection = newMoveDirection;
 
-        //  TileMap BFS
         // if((this.x % this.tileSize === 0) && (this.y % this.tileSize === 0) && this.id === 3) {
-        //     let nextmove = this.tileMap.buildTree(this, cakeman);
+        //     let nextmoveDirection = this.tileMap.buildTree(this, cakeman);
+        //     // console.log(nextmoveDirection);
+        //     if(nextmoveDirection !== 777) this.movingDirection = nextmoveDirection;
         // }
     }
 }

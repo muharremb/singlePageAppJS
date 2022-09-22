@@ -252,12 +252,12 @@ TileMap.prototype.removeDot = function removeDot(x, y) {
 }
 
 TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
-    
+    let i=0;
     let ghostX = Math.floor(ghost.x/24);
     let ghostY = Math.floor(ghost.y/24);
     let inputGhostNode = new PolyTreeNode({position: [ghostX, ghostY]});
-    let cakemanX = cakeman.x;
-    let cakemanY = cakeman.y;
+    let cakemanX = Math.floor(cakeman.x/24);
+    let cakemanY = Math.floor(cakeman.y/24);
 
     let queue = []
     queue.push(inputGhostNode);
@@ -271,11 +271,11 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
 
         let x = currentNode.x;
         let y = currentNode.y;
-        console.log(`x: ${x} vs y: ${y}`);
+        // console.log(`x: ${x} vs y: ${y}`);
         // return;
         
         if(this.tiles[x+1][y] !== 1) {
-            let child = new PolyTreeNode({position: [x+1, y]});
+            var child = new PolyTreeNode({position: [x+1, y]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
                 visitedNodes.push(child);
@@ -287,7 +287,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                 }
             }
         }if(this.tiles[x][y+1] !== 1) {
-            let child = new PolyTreeNode({position: [x, y+1]});
+            var child = new PolyTreeNode({position: [x, y+1]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
                 visitedNodes.push(child);
@@ -299,7 +299,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                 }
             }
         }if (this.tiles[x-1][y] !== 1) {
-            let child = new PolyTreeNode({position: [x-1, y]});
+            var child = new PolyTreeNode({position: [x-1, y]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
                 visitedNodes.push(child);
@@ -312,7 +312,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
             }
         }
         if (this.tiles[x][y-1] !== 1) {
-            let child = new PolyTreeNode({position: [x, y-1]});
+            var child = new PolyTreeNode({position: [x, y-1]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
                 visitedNodes.push(child);
@@ -324,19 +324,34 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                 }
             }
         }
+        i+=1
+        if(i === 100) {
+            // console.log(queue);
+            return 777;
+        }
     }
-    //console.log(queue);
-    // need to iterate from back
-    // let ghostNode = visitedNodes[visitedNodes.length-1];
-    // let backToGhost = [ghostNode];
-    // let node = ghostNode.parent;
+    let cakemanNode = visitedNodes[visitedNodes.length-1];
+    let backToGhostArr = [cakemanNode];
+    // console.log(cakemanNode.parent);
+    // return;
+    var node = cakemanNode;
 
-    // while(node.parent !== this.ghostNode) {
-    //     backToGhost.push(node);
-    //     node = node.parent;
-    // }
-    // let nextMoveNode = node;
-    // return nextMoveNode.x;
+    while(node.parent !== inputGhostNode) {
+        backToGhostArr.push(node);
+        node = node.parent;
+    }
+    let nextMoveNode = backToGhostArr[backToGhostArr.length-1];
+    if(nextMoveNode.x === inputGhostNode.x) {
+        if(nextMoveNode.y >= inputGhostNode.y) {
+            return MovingDirection.down;
+        } else return MovingDirection.up;
+    }
+
+    if(nextMoveNode.y === inputGhostNode.y) {
+        if(nextMoveNode.x >= inputGhostNode.x) {
+            return MovingDirection.right;
+        } else return MovingDirection.left;
+    }
 }
 
 TileMap.prototype.gameOverScreen = function(ctx, cakeman) {

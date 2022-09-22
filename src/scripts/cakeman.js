@@ -140,7 +140,7 @@ Cakeman.prototype.keydown = function (event) {
 
     if(arr.includes(event.keyCode)) {
         this.hasMoved = true;
-        this.timer();
+        // this.timer();
     }
 
     // up key
