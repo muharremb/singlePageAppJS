@@ -38,3 +38,17 @@ body {
   margin-left: 2rem;
   font-size: 27px;
 }
+
+#body-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.side-box {
+  border: 4px solid black;
+  border-radius: 8px;
+  padding: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}

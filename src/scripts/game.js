@@ -47,6 +47,7 @@ Game.prototype.gameIter = function() {
         this.purpleGhost.draw(this.ctx, this.pause(), this.cakeman);
         this.pinkGhost.draw(this.ctx, this.pause(), this.cakeman);
     }
+    // this.isWin();
 };
 
 Game.prototype.pause = function pause() {
@@ -84,6 +85,9 @@ Game.prototype.isLost = function isLost() {
         this.tileMap.gameOverScreen(this.ctx, this.cakeman);
         setTimeout(() => location.reload(), 7000);
         return true;
+    } else if(this.isWin()) {
+        this.tileMap.winScreen(this.ctx, this.cakeman);
+        
     }
     return false;
 }
@@ -91,8 +95,9 @@ Game.prototype.isLost = function isLost() {
 Game.prototype.isWin = function isWin() {
     let remainingDots = this.tileMap.tiles.flat().filter(v => v === 0).length;
     if(remainingDots === 0) {
-        this.tileMap.winScreen(this.ctx, this.cakeman);
-        setTimeout(() => location.reload(), 7000);
+        // console.log(remainingDots);
+        // this.tileMap.winScreen(this.ctx, this.cakeman);
+        // setTimeout(() => location.reload(), 7000);
         return true;     
     }
     return false;
