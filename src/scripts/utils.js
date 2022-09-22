@@ -7,7 +7,6 @@ const Util = {
         childClass.prototype = new Surrogate();
         childClass.prototype.constructor = childClass;
     },
-
     randomVec(length) {
         const deg = 2 * Math.PI * Math.random();
         return Util.scale([Math.sin(deg), Math.cos(deg)], length);
@@ -16,13 +15,11 @@ const Util = {
     scale(vec, m) {
         return [vec[0] * m, vec[1] * m];
     },
-
     dist(pos1, pos2) {
         return Math.sqrt(
           Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
         );
-    },
-    
+    },    
     findDirectionForGhost(ghost, cakeman, tileMap) {
         let absX = Math.abs(ghost.x - cakeman.x);
         let absY = Math.abs(ghost.y - cakeman.y);
@@ -61,10 +58,3 @@ const Util = {
 }
 
 module.exports = Util;
-
-// const MovingDirection = {
-//     up: 0, // avoid using 0
-//     down: 1,
-//     left: 2,
-//     right: 3,
-//   };

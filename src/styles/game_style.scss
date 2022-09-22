@@ -4,6 +4,8 @@ body {
     // justify-content: center;
     // flex-wrap: wrap;
     background-color: gray;
+    font-family: 'Bungee Spice', cursive;
+    font-size: 27px;
 }
 
 #game-canvas {
@@ -14,3 +16,30 @@ body {
 // #root {
 //     background-color: red;
 // }
+
+.nav-list {
+    background-color: rgba(220, 241, 29, 0.993);
+    box-shadow: 0px 0px 10px;
+    margin: 0%;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav-item {
+    list-style: none;
+    margin-right: 1rem;
+    font-size: 18px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: blue;
+}
+
+.nav-item:first-child {
+    margin-right: auto;
+    margin-left: 2rem;
+    font-size: 27px;
+}

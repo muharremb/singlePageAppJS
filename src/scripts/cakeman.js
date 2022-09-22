@@ -35,6 +35,8 @@ Cakeman.prototype.draw = function(ctx) {
     this.move();
     this.animate();
     this.removeDot();
+
+    // Rather than using multiple image, only one image was used for rotation. 
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations
     let size = this.tileSize / 2;
     ctx.save();
@@ -68,7 +70,7 @@ Cakeman.prototype.timer = function timer() {
 
 Cakeman.prototype.move = function(){
     if(this.currentMovingDirection !== this.requestedMovingDirection) {
-        if(Number.isInteger(this.x/this.tileSize) && Number.isInteger(this.y/this.tileSize)) {
+        if((this.x % this.tileSize === 0) && (this.y % this.tileSize === 0)) {
             if(!this.tileMap.didCollidedWithEnv(
                 this.x,
                 this.y,
@@ -136,7 +138,8 @@ Cakeman.prototype.loadCakemanImages = function() {
 Cakeman.prototype.keydown = function (event) {
     const arr = [38, 40, 37, 39];
 
-    // if(event.keyCode === 32) this.timer();
+    // if(event.keyCode === 32 && !this.hasMoved) this.timer();
+    if(arr.includes(event.keyCode) && !this.hasMoved) this.timer();
 
     if(arr.includes(event.keyCode)) {
         this.hasMoved = true;

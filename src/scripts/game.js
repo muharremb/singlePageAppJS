@@ -17,7 +17,6 @@ function Game(canvas) {
     // this.setCanvasSize();
 };
 
-
 Game.prototype.setCanvasSize = function setCanvasSize() {
     this.tileMap.setCanvas(this.canvas);
 }
@@ -32,8 +31,6 @@ Game.prototype.start = function() {
     this.setCanvasSize(); 
 
     this.myInterval = setInterval(this.gameIter.bind(this), 1000/60);
-    this.cakeman.timer();
-    // setInterval(this.gameIter.bind(this), 1000/60);
 }
 
 Game.prototype.stop = function() {
@@ -41,8 +38,6 @@ Game.prototype.stop = function() {
 }
 
 Game.prototype.gameIter = function() {
-    // console.log(`cakeman.x: ${this.cakeman.x}, ${this.cakeman.y} ghost x: ${this.ghost.x}, ${this.ghost.y}`);
-    // console.log(`ghost.moving direction: ${this.ghost.movingDirection}`);
     
     if(!this.isLost()) {
         this.tileMap.draw(this.ctx, this.cakeman);
@@ -52,7 +47,6 @@ Game.prototype.gameIter = function() {
         this.purpleGhost.draw(this.ctx, this.pause(), this.cakeman);
         this.pinkGhost.draw(this.ctx, this.pause(), this.cakeman);
     }
-    // else this.start();
 };
 
 Game.prototype.pause = function pause() {
@@ -60,7 +54,7 @@ Game.prototype.pause = function pause() {
 }
 
 Game.prototype.isLost = function isLost() {
-    // 2d Detection Collision on mozilla
+    // 2d Detection Collision on Mozilla
     // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
     
     if(
@@ -88,23 +82,20 @@ Game.prototype.isLost = function isLost() {
 
     ) {
         this.tileMap.gameOverScreen(this.ctx, this.cakeman);
-        // this.stop();
-        // this.start();
         setTimeout(() => location.reload(), 7000);
-        // location.reload();
         return true;
     }
     return false;
 }
 
-// Game.prototype.isWin = function isWin() {
-//     let remainingDots = this.tileMap.tiles.flat().filter(v => v === 0).length;
-//     if(remainingDots === 0) {
-//         return true;     
-//     }
-//     return false;
-// }
+Game.prototype.isWin = function isWin() {
+    let remainingDots = this.tileMap.tiles.flat().filter(v => v === 0).length;
+    if(remainingDots === 0) {
+        this.tileMap.winScreen(this.ctx, this.cakeman);
+        setTimeout(() => location.reload(), 7000);
+        return true;     
+    }
+    return false;
+}
 
 module.exports = Game;
-
-window.Game = Game;
