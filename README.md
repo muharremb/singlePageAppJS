@@ -14,6 +14,9 @@ The Cake-Man Game is a Single Page Application written in JavaScript using Webpa
 ## Implementation
 Index.js is the main entry for the application. After the page loads, it creates a new game object passing canvas element as an input and then triggers Game#start method. 
 
-Game.js is the main part of the code as Game class has a full picture of the game situation. Game#start function creates tileMap, cakeman, ghosts(red, yellow, purple and pink) objects. 
+Game.js is the main part of the code as Game class has a full picture of the game situation. Game#start function creates tileMap, cakeman, ghosts(red, yellow, purple and pink) objects. And it triggers Game#gameIter method using setInterval. 
+
+Game#gameIter method triggers tileMap, ghosts and cakeman drawing functions in TileMap. 
+
 
 

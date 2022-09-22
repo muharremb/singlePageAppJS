@@ -5,16 +5,7 @@ function Game(canvas) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext("2d");
     this.tileSize = 24;
-    this.velocity = 2;
-    
-    // this.tileMap = new TileMap(this.tileSize);
-    // this.cakeman = this.tileMap.getCakeman();
-    // this.ghost = this.tileMap.getGhost();
-    // this.blueGhost = this.tileMap.getGhost();
-    // this.purpleGhost = this.tileMap.getGhost();
-    // this.pinkGhost = this.tileMap.getGhost(); 
-
-    // this.setCanvasSize();
+    this.velocity = 2;    
 };
 
 Game.prototype.setCanvasSize = function setCanvasSize() {
