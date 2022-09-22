@@ -6,7 +6,6 @@ Cake-Man is a different version of Pac-Man which originally released at 1980. In
 ## Instructions to Play Cake-Man
 The player control cakeman using only arrow keys: UP, DOWN, LEFT, RIGHT. The player should eat all the dots while avoiding ghosts. There is a fixed timer on the upper right, 120 seconds to finish. Timer starts when the player push any controlling buttons. After the game end, the page refreshes itself after 7 seconds and back to start. 
 
-
 ![](cakemanGameScreen.png)
 
 ## Technologies, Libraries, APIs
