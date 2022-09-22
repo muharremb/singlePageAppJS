@@ -13,6 +13,7 @@ function TileMap (tileSize) {
 
     this.cakeman = new Image();
     this.cakeman.src = "../images/cakemanClosed.png";
+    document.body.appendChild(this.cakeman);
 
     this.wall = new Image();
     this.wall.src = "/..images/wall.png";
