@@ -127,4 +127,5 @@ There is one thing to highlight, regarding draw and animate functions.
 * [Mozilla Square tilemaps implementation for Static maps](https://developer.mozilla.org/en-US/docs/Games/Techniques/Tilemaps/Square_tilemaps_implementation:_Static_maps)
 * [Mozilla 2d Detection Collision](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection)
 * [CodingWith Adam](https://github.com/CodingWith-Adam)
+* [Google Fonts Bungee Spice](https://fonts.google.com/specimen/Bungee+Spice)
 

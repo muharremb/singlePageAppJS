@@ -283,7 +283,6 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
 
     let isFound = false;
     let visitedNodes = [];
-
     while(queue.length && !isFound) {
 
         let currentNode = queue.shift();
@@ -293,7 +292,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
         // console.log(`x: ${x} vs y: ${y}`);
         // return;
         
-        if(this.tiles[x+1][y] !== 1) {
+        if(this.tiles[x+1][y] !== 1 && this.tiles[x+1] !== undefined) {
             var child = new PolyTreeNode({position: [x+1, y]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
@@ -305,7 +304,8 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                     break;
                 }
             }
-        }if(this.tiles[x][y+1] !== 1) {
+        }
+        if(this.tiles[x][y+1] !== 1 && this.tiles[x][y+1] !== undefined) {
             var child = new PolyTreeNode({position: [x, y+1]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
@@ -317,7 +317,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                     break;
                 }
             }
-        }if (this.tiles[x-1][y] !== 1) {
+        }if (this.tiles[x-1][y] !== 1 && this.tiles[x-1] !== undefined) {
             var child = new PolyTreeNode({position: [x-1, y]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
@@ -330,7 +330,7 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
                 }
             }
         }
-        if (this.tiles[x][y-1] !== 1) {
+        if (this.tiles[x][y-1] !== 1 && this.tiles[x][y-1] !== undefined) {
             var child = new PolyTreeNode({position: [x, y-1]});
             if(!visitedNodes.includes(child)) {
                 queue.push(child);
@@ -351,10 +351,9 @@ TileMap.prototype.buildTree = function buildTree(ghost, cakeman) {
     }
     let cakemanNode = visitedNodes[visitedNodes.length-1];
     let backToGhostArr = [cakemanNode];
-    // console.log(cakemanNode.parent);
-    // return;
-    var node = cakemanNode;
-
+    console.log(cakemanNode.parent.x);
+    return;
+    // console.log(`console log: ${visitedNodes}`)
     while(node.parent !== inputGhostNode) {
         backToGhostArr.push(node);
         node = node.parent;
