@@ -110,13 +110,13 @@ Ghost.prototype.changeDirection = function changeDirection(cakeman) {
 Ghost.prototype.loadGhostImage = function draw() {
     this.ghostImage = new Image();
     if(this.id === 3) {
-        this.ghostImage.src = ("../images/redGhost.png");
+        this.ghostImage.src = ("./images/redGhost.png");
     } else if(this.id === 4) {
-        this.ghostImage.src = ("../images/blueGhost.png");
+        this.ghostImage.src = ("./images/blueGhost.png");
     } else if(this.id === 5) {
-        this.ghostImage.src = ("../images/purpleGhost.png");
+        this.ghostImage.src = ("./images/purpleGhost.png");
     } else if(this.id === 6) {
-        this.ghostImage.src = ("../images/pinkGhost.png");
+        this.ghostImage.src = ("./images/pinkGhost.png");
     }
 }
 module.exports = Ghost;

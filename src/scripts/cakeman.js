@@ -114,16 +114,16 @@ Cakeman.prototype.move = function(){
 
 Cakeman.prototype.loadCakemanImages = function() {
     const cakemanImg1 = new Image();
-    cakemanImg1.src = "../images/cakemanClosed.png";
+    cakemanImg1.src = "./images/cakemanClosed.png";
 
     const cakemanImg2 = new Image();
-    cakemanImg2.src = "../images/cakemanHalfOpen.png";
+    cakemanImg2.src = "./images/cakemanHalfOpen.png";
 
     const cakemanImg3 = new Image();
-    cakemanImg3.src = "../images/cakemanFullOpen.png";
+    cakemanImg3.src = "./images/cakemanFullOpen.png";
 
     const cakemanImg4 = new Image();
-    cakemanImg4.src = "../images/cakemanHalfOpen.png";
+    cakemanImg4.src = "./images/cakemanHalfOpen.png";
 
     this.cakemanImages = [
         cakemanImg1,
