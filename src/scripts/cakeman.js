@@ -51,13 +51,6 @@ Cakeman.prototype.draw = function(ctx) {
     );
     ctx.restore();
 
-    // ctx.drawImage(
-    //     this.cakemanImages[this.cakemanImageIndex],
-    //     this.x,
-    //     this.y,
-    //     this.tileSize,
-    //     this.tileSize
-    // )
 };
 
 Cakeman.prototype.timer = function timer() {

@@ -1,7 +1,6 @@
 const MovingDirection = require("./movingDirections.js");
 
 const Util = {
-
     dist(pos1, pos2) {
         return Math.sqrt(
           Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
@@ -11,8 +10,6 @@ const Util = {
         let absX = Math.abs(ghost.x - cakeman.x);
         let absY = Math.abs(ghost.y - cakeman.y);
         let currentD = ghost.MovingDirection;
-
-        // var item = items[Math.floor(Math.random()*items.length)];
 
         if(absX >= absY) {
             // should be left or right

@@ -21,7 +21,7 @@ Game.prototype.start = function() {
     this.pinkGhost = this.tileMap.getGhost();
     this.setCanvasSize(); 
 
-    this.myInterval = setInterval(this.gameIter.bind(this), 1000/60);
+    this.myInterval = setInterval(this.gameIter.bind(this), 15);
 }
 
 Game.prototype.stop = function() {
