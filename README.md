@@ -18,5 +18,3 @@ Game.js is the main part of the code as Game class has a full picture of the gam
 
 Game#gameIter method triggers tileMap, ghosts and cakeman drawing functions in TileMap. 
 
-
-
