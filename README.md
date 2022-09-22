@@ -16,3 +16,4 @@ Index.js is the main entry for the application. After the page loads, it creates
 
 Game.js is the main part of the code as Game class has a full picture of the game situation. Game#start function creates tileMap, cakeman, ghosts(red, yellow, purple and pink) objects. 
 
+

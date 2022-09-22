@@ -12,22 +12,22 @@ function TileMap (tileSize) {
     this.tileSize = tileSize
 
     this.cakeman = new Image();
-    this.cakeman.src = "../../images/cakemanClosed.png";
+    this.cakeman.src = "images/cakemanClosed.png";
     
     this.wall = new Image();
-    this.wall.src = "../../images/wall.png";
+    this.wall.src = "images/wall.png";
 
     this.dot = new Image();
-    this.dot.src = "../../images/dot.png";
+    this.dot.src = "images/dot.png";
 
-    // 1 wall
     // 0 dots
+    // 1 wall
     // 2 empty black
-    // 7 cakeman
     // 3 ghost red
     // 4 ghost blue
     // 5 ghost purple
     // 6 ghost pink
+    // 7 cakeman
     // 8 score
     
     this.tiles = [        
